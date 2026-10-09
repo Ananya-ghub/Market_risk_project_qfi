@@ -6,7 +6,7 @@ import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from config import (
+from src.config import (
     STOCKS,
     START_DATE,
     END_DATE,
@@ -14,7 +14,7 @@ from config import (
     RAW_DATA
 )
 
-from utils import create_directories
+from src.utils import create_directories
 
 
 # ==========================================
