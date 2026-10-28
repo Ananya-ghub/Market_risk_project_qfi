@@ -18,9 +18,8 @@ dist-ssr
 .env.*
 *.env
 
-# Local synced data mirrors (automatically populated by scripts/sync_data.js from root data/ and outputs/)
-public/data/
-public/outputs/
+# Ignore large unused raw price dumps (raw stock prices & full dump), while tracking processed datasets and outputs
+public/data/raw/
 
 # Editor directories and files
 .vscode/*
@@ -32,3 +31,6 @@ public/outputs/
 *.njsproj
 *.sln
 *.sw?
+
+.vercel
+.env*

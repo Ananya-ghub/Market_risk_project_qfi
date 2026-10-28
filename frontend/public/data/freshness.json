@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "local_latest_date": "2026-10-08",
+  "market_latest_date": "2026-10-08",
+  "is_up_to_date": true,
+  "status": "data_up_to_date",
+  "market_data_mtime": "2026-10-09T16:27:53.123Z",
+  "checked_at": "2026-10-28T11:28:01.646Z",
+  "last_synced": "2026-10-28T11:28:01.646Z"
+}

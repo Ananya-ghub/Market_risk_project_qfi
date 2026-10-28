@@ -15,11 +15,15 @@ import {
   ExceptionPoint
 } from '../types/risk';
 
-const cache = new Map<string, any>();
+const cache = new Map<string, string>();
 
-export async function fetchCsvText(url: string): Promise<string> {
-  if (cache.has(url)) {
-    return cache.get(url);
+export function clearCsvCache(): void {
+  cache.clear();
+}
+
+export async function fetchCsvText(url: string, forceRefresh = false): Promise<string> {
+  if (!forceRefresh && cache.has(url)) {
+    return cache.get(url)!;
   }
 
   // Try direct path first, then fallback to public path prefix
@@ -31,14 +35,36 @@ export async function fetchCsvText(url: string): Promise<string> {
   let text = '';
   let lastError: Error | null = null;
 
-  for (const path of pathsToTry) {
+  for (const basePath of pathsToTry) {
     try {
-      const response = await fetch(path);
+      const fetchUrl = forceRefresh
+        ? `${basePath}${basePath.includes('?') ? '&' : '?'}t=${Date.now()}`
+        : basePath;
+
+      const response = await fetch(fetchUrl, {
+        cache: forceRefresh ? 'no-cache' : 'default',
+        headers: forceRefresh ? { 'Cache-Control': 'no-cache' } : undefined
+      });
+
       if (response.ok) {
-        text = await response.text();
-        if (text && text.length > 0) {
+        const candidate = await response.text();
+        const trimmed = candidate.trim();
+        // Guard against SPA 404 falling back to index.html
+        if (
+          trimmed.startsWith('<!DOCTYPE') ||
+          trimmed.startsWith('<!doctype') ||
+          trimmed.startsWith('<html') ||
+          trimmed.includes('window.__vite_plugin_react_preamble_installed__')
+        ) {
+          lastError = new Error(`File at ${basePath} returned an HTML document (file not found on static host)`);
+          continue;
+        }
+        if (trimmed.length > 0) {
+          text = candidate;
           break;
         }
+      } else {
+        lastError = new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
     } catch (err: any) {
       lastError = err;
@@ -55,9 +81,10 @@ export async function fetchCsvText(url: string): Promise<string> {
 
 export async function parseCsv<T = any>(
   url: string,
-  options?: Papa.ParseConfig
+  options?: Papa.ParseConfig,
+  forceRefresh = false
 ): Promise<T[]> {
-  const text = await fetchCsvText(url);
+  const text = await fetchCsvText(url, forceRefresh);
   return new Promise((resolve, reject) => {
     Papa.parse<T>(text, {
       header: true,
@@ -74,9 +101,11 @@ export async function parseCsv<T = any>(
   });
 }
 
-export async function loadPortfolioValue(): Promise<PortfolioValuePoint[]> {
+export async function loadPortfolioValue(forceRefresh = false): Promise<PortfolioValuePoint[]> {
   const rows = await parseCsv<{ Date: string; portfolio_value: number }>(
-    '/data/processed/portfolio_value.csv'
+    '/data/processed/portfolio_value.csv',
+    undefined,
+    forceRefresh
   );
   return rows
     .filter((r) => r.Date && typeof r.portfolio_value === 'number')
@@ -86,9 +115,11 @@ export async function loadPortfolioValue(): Promise<PortfolioValuePoint[]> {
     }));
 }
 
-export async function loadPortfolioReturns(): Promise<PortfolioReturnPoint[]> {
+export async function loadPortfolioReturns(forceRefresh = false): Promise<PortfolioReturnPoint[]> {
   const rows = await parseCsv<{ Date: string; portfolio_return: number }>(
-    '/data/processed/portfolio_returns.csv'
+    '/data/processed/portfolio_returns.csv',
+    undefined,
+    forceRefresh
   );
   return rows
     .filter((r) => r.Date && typeof r.portfolio_return === 'number')
@@ -98,9 +129,11 @@ export async function loadPortfolioReturns(): Promise<PortfolioReturnPoint[]> {
     }));
 }
 
-export async function loadPortfolioPnl(): Promise<PortfolioPnlPoint[]> {
+export async function loadPortfolioPnl(forceRefresh = false): Promise<PortfolioPnlPoint[]> {
   const rows = await parseCsv<{ Date: string; daily_pnl: number }>(
-    '/data/processed/portfolio_pnl.csv'
+    '/data/processed/portfolio_pnl.csv',
+    undefined,
+    forceRefresh
   );
   return rows
     .filter((r) => r.Date && typeof r.daily_pnl === 'number')
@@ -110,39 +143,41 @@ export async function loadPortfolioPnl(): Promise<PortfolioPnlPoint[]> {
     }));
 }
 
-export async function loadPortfolioWeights(): Promise<StockWeight[]> {
-  const rows = await parseCsv<{ 'Unnamed: 0'?: string; ticker?: string; weight: number }>(
-    '/data/processed/portfolio_weights.csv'
+export async function loadPortfolioWeights(forceRefresh = false): Promise<StockWeight[]> {
+  const rows = await parseCsv<any>(
+    '/data/processed/portfolio_weights.csv',
+    undefined,
+    forceRefresh
   );
-  return rows.map((r) => ({
-    ticker: r.ticker || r['Unnamed: 0'] || 'STOCK',
-    weight: Number(r.weight)
-  }));
+  return rows.map((r) => {
+    const keys = Object.keys(r);
+    const tickerKey = keys.find((k) => k.toLowerCase() === 'ticker') || keys.find((k) => k !== 'weight') || keys[0];
+    return {
+      ticker: String(r[tickerKey] || r['Unnamed: 0'] || r[''] || 'STOCK'),
+      weight: Number(r.weight || 0.02)
+    };
+  });
 }
 
-export async function loadVarSummary(): Promise<VarSummaryItem[]> {
-  return await parseCsv<VarSummaryItem>('/outputs/phase4/var_summary.csv');
+export async function loadVarSummary(forceRefresh = false): Promise<VarSummaryItem[]> {
+  return await parseCsv<VarSummaryItem>('/outputs/phase4/var_summary.csv', undefined, forceRefresh);
 }
 
-export async function loadRollingVar(): Promise<RollingVarPoint[]> {
-  const rows = await parseCsv<{
-    date: string;
-    window: number;
-    confidence: number;
-    VaR_return: number;
-    ES_return: number;
-  }>('/outputs/phase4/rolling_var.csv');
-  return rows.map((r) => ({
-    date: r.date,
-    window: Number(r.window),
-    confidence: Number(r.confidence),
-    VaR_return: Number(r.VaR_return),
-    ES_return: Number(r.ES_return)
-  }));
+export async function loadRollingVar(forceRefresh = false): Promise<RollingVarPoint[]> {
+  const rows = await parseCsv<any>('/outputs/phase4/rolling_var.csv', undefined, forceRefresh);
+  return rows
+    .filter((r) => r.date && typeof r.VaR_return === 'number' && !isNaN(r.VaR_return))
+    .map((r) => ({
+      date: String(r.date),
+      window: Number(r.window),
+      confidence: Number(r.confidence),
+      VaR_return: Number(r.VaR_return),
+      ES_return: Number(r.ES_return)
+    }));
 }
 
-export async function loadBacktestSummary(): Promise<BacktestSummaryItem[]> {
-  const rows = await parseCsv<any>('/outputs/phase8/backtesting_summary.csv');
+export async function loadBacktestSummary(forceRefresh = false): Promise<BacktestSummaryItem[]> {
+  const rows = await parseCsv<any>('/outputs/phase8/backtesting_summary.csv', undefined, forceRefresh);
   return rows.map((r) => ({
     model: String(r.model),
     confidence: Number(r.confidence),
@@ -162,8 +197,8 @@ export async function loadBacktestSummary(): Promise<BacktestSummaryItem[]> {
   }));
 }
 
-export async function loadExceptionSeries(): Promise<ExceptionPoint[]> {
-  const rows = await parseCsv<any>('/outputs/phase8/exception_series.csv');
+export async function loadExceptionSeries(forceRefresh = false): Promise<ExceptionPoint[]> {
+  const rows = await parseCsv<any>('/outputs/phase8/exception_series.csv', undefined, forceRefresh);
   return rows.map((r) => ({
     date: String(r.date),
     model: String(r.model),
@@ -172,8 +207,8 @@ export async function loadExceptionSeries(): Promise<ExceptionPoint[]> {
   }));
 }
 
-export async function loadModelComparison(): Promise<ModelComparisonItem[]> {
-  const rows = await parseCsv<any>('/outputs/phase9/model_comparison.csv');
+export async function loadModelComparison(forceRefresh = false): Promise<ModelComparisonItem[]> {
+  const rows = await parseCsv<any>('/outputs/phase9/model_comparison.csv', undefined, forceRefresh);
   return rows.map((r) => ({
     model: String(r.model),
     confidence: Number(r.confidence),
@@ -188,8 +223,8 @@ export async function loadModelComparison(): Promise<ModelComparisonItem[]> {
   }));
 }
 
-export async function loadBaselineRisk(): Promise<BaselineRisk> {
-  const rows = await parseCsv<any>('/outputs/phase10/baseline_risk.csv');
+export async function loadBaselineRisk(forceRefresh = false): Promise<BaselineRisk> {
+  const rows = await parseCsv<any>('/outputs/phase10/baseline_risk.csv', undefined, forceRefresh);
   if (rows.length === 0) {
     return {
       initial_investment: 100000,
@@ -213,8 +248,8 @@ export async function loadBaselineRisk(): Promise<BaselineRisk> {
   };
 }
 
-export async function loadStressTests(): Promise<StressTestItem[]> {
-  const rows = await parseCsv<any>('/outputs/phase10/stress_test_results.csv');
+export async function loadStressTests(forceRefresh = false): Promise<StressTestItem[]> {
+  const rows = await parseCsv<any>('/outputs/phase10/stress_test_results.csv', undefined, forceRefresh);
   return rows.map((r) => ({
     scenario: String(r.scenario),
     type: String(r.type),
@@ -227,21 +262,21 @@ export async function loadStressTests(): Promise<StressTestItem[]> {
   }));
 }
 
-export async function loadParameters(filepath: string): Promise<ModelParameter[]> {
-  const rows = await parseCsv<any>(filepath);
+export async function loadParameters(filepath: string, forceRefresh = false): Promise<ModelParameter[]> {
+  const rows = await parseCsv<any>(filepath, undefined, forceRefresh);
   return rows.map((r) => ({
     parameter: String(r.parameter),
     estimate: Number(r.estimate)
   }));
 }
 
-export async function loadCombinedVolatility(): Promise<VolatilitySeriesPoint[]> {
-  // Combine EWMA, GARCH, and GJR volatility series with returns
+export async function loadCombinedVolatility(forceRefresh = false): Promise<VolatilitySeriesPoint[]> {
+  // Combine EWMA, GARCH, and GJR volatility series with returns safely
   const [ewma, garch, gjr] = await Promise.all([
-    parseCsv<any>('/outputs/phase5/ewma_results.csv'),
-    parseCsv<any>('/outputs/phase6/garch_results.csv'),
-    parseCsv<any>('/outputs/phase7/gjr_results.csv').catch(() =>
-      parseCsv<any>('/outputs/phase7/gjr_garch_results.csv')
+    parseCsv<any>('/outputs/phase5/ewma_results.csv', undefined, forceRefresh).catch(() => []),
+    parseCsv<any>('/outputs/phase6/garch_results.csv', undefined, forceRefresh).catch(() => []),
+    parseCsv<any>('/outputs/phase7/gjr_garch_results.csv', undefined, forceRefresh).catch(() =>
+      parseCsv<any>('/outputs/phase7/gjr_results.csv', undefined, forceRefresh).catch(() => [])
     )
   ]);
 

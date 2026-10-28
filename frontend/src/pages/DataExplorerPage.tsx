@@ -3,6 +3,7 @@ import Papa from 'papaparse';
 import { Database, Download, Search, FileText, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { DataTable, ColumnDef } from '../components/common/DataTable';
 import { MetricCard } from '../components/common/MetricCard';
+import { fetchCsvText } from '../lib/csvLoader';
 
 interface DatasetMeta {
   id: string;
@@ -28,7 +29,7 @@ const availableDatasets: DatasetMeta[] = [
   { id: 'garch_res', name: 'garch_results.csv', path: '/outputs/phase6/garch_results.csv', category: 'Phase 6 - GARCH', description: 'Conditional volatility, one-step forecasts, and GARCH VaR/ES cutoffs' },
   { id: 'gjr_par', name: 'gjr_garch_parameters.csv', path: '/outputs/phase7/gjr_garch_parameters.csv', category: 'Phase 7 - GJR-GARCH', description: 'Fitted GJR parameters including asymmetric leverage coefficient gamma' },
   { id: 'gjr_res', name: 'gjr_garch_results.csv', path: '/outputs/phase7/gjr_garch_results.csv', category: 'Phase 7 - GJR-GARCH', description: 'Asymmetric conditional volatility and scaled VaR/ES time series' },
-  { id: 'back_sum', name: 'backtesting_summary.csv', path: '/outputs/phase8/backtesting', description: 'Kupiec POF and Christoffersen independence backtest statistics', category: 'Phase 8 - Backtesting' },
+  { id: 'back_sum', name: 'backtesting_summary.csv', path: '/outputs/phase8/backtesting_summary.csv', description: 'Kupiec POF and Christoffersen independence backtest statistics', category: 'Phase 8 - Backtesting' },
   { id: 'exc_ser', name: 'exception_series.csv', path: '/outputs/phase8/exception_series.csv', category: 'Phase 8 - Backtesting', description: 'Daily binary exception indicators (1 = breach, 0 = non-breach)' },
   { id: 'mod_comp', name: 'model_comparison.csv', path: '/outputs/phase9/model_comparison.csv', category: 'Phase 9 - Comparison', description: 'Unified comparison matrix across Historical, EWMA, GARCH, and GJR-GARCH' },
   { id: 'base_risk', name: 'baseline_risk.csv', path: '/outputs/phase10/baseline_risk.csv', category: 'Phase 10 - Stress Testing', description: 'Baseline portfolio covariance volatility, 99% VaR, and 99% ES' },
@@ -52,9 +53,7 @@ export const DataExplorerPage: React.FC = () => {
         let fetchUrl = selectedMeta.path;
         if (!fetchUrl.endsWith('.csv')) fetchUrl += '.csv';
 
-        const res = await fetch(fetchUrl);
-        if (!res.ok) throw new Error(`HTTP ${res.status}: Dataset not found at ${fetchUrl}`);
-        const text = await res.text();
+        const text = await fetchCsvText(fetchUrl);
 
         Papa.parse(text, {
           header: true,

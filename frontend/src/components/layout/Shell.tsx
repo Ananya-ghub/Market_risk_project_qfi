@@ -30,6 +30,17 @@ export const Shell: React.FC = () => {
             {/* Freshness Banner at top */}
             <FreshnessBanner />
 
+            {/* Notice if error occurred */}
+            {error && (
+              <div className="rounded-lg border border-rose-500/30 bg-rose-950/20 p-4 flex items-start gap-3 text-left">
+                <AlertCircle className="h-5 w-5 text-rose-400 shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="text-sm font-semibold text-rose-300">Data Loading Notice</h3>
+                  <p className="mt-1 text-xs text-rose-400/90">{error}</p>
+                </div>
+              </div>
+            )}
+
             {/* Error or Loading state */}
             {loading ? (
               <div className="flex h-96 flex-col items-center justify-center gap-3 rounded-lg border border-navy-800 bg-navy-900/50">
@@ -40,12 +51,6 @@ export const Shell: React.FC = () => {
                 <span className="text-xs text-slate-500 font-mono">
                   Parsing CSV records: Portfolio values, VaR cutoffs, GARCH volatility, and Backtests
                 </span>
-              </div>
-            ) : error ? (
-              <div className="rounded-lg border border-rose-500/30 bg-rose-950/20 p-6 text-center">
-                <AlertCircle className="mx-auto h-8 w-8 text-rose-400" />
-                <h3 className="mt-2 text-sm font-semibold text-rose-300">Data Loading Error</h3>
-                <p className="mt-1 text-xs text-rose-400/80">{error}</p>
               </div>
             ) : (
               <Outlet />
