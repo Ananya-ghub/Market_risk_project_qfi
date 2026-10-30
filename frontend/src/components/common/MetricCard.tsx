@@ -27,20 +27,20 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   const getVariantStyles = () => {
     switch (variant) {
       case 'positive':
-        return 'border-emerald-500/30 bg-emerald-950/10 text-emerald-400';
+        return 'border-emerald-500/30 bg-emerald-950/15 text-emerald-400 hover:border-emerald-500/50';
       case 'negative':
-        return 'border-rose-500/30 bg-rose-950/10 text-rose-400';
+        return 'border-rose-500/30 bg-rose-950/15 text-rose-400 hover:border-rose-500/50';
       case 'warning':
-        return 'border-amber-500/30 bg-amber-950/10 text-amber-400';
+        return 'border-amber-500/30 bg-amber-950/15 text-amber-400 hover:border-amber-500/50';
       case 'primary':
-        return 'border-teal-500/30 bg-teal-950/10 text-teal-400';
+        return 'border-teal-500/30 bg-teal-950/15 text-teal-400 hover:border-teal-500/50';
       default:
-        return 'border-navy-700 bg-navy-850 text-slate-300';
+        return 'border-navy-750 bg-navy-850 text-slate-300 hover:border-navy-600';
     }
   };
 
   return (
-    <div className="relative rounded-lg border border-navy-700 bg-navy-850 p-4 transition-all duration-200 hover:border-navy-600 hover:shadow-card">
+    <div className={`relative rounded-lg border p-4 transition-all duration-200 shadow-card ${getVariantStyles()}`}>
       <div className="flex items-center justify-between text-xs text-slate-400">
         <div className="flex items-center gap-1.5 font-medium tracking-wider uppercase">
           {Icon && <Icon className="h-4 w-4 text-slate-400" />}
@@ -48,14 +48,14 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         </div>
         <div className="flex items-center gap-1.5">
           {badge && (
-            <span className="rounded bg-navy-750 px-1.5 py-0.5 text-[10px] font-semibold text-slate-300">
+            <span className="rounded bg-navy-750/80 px-1.5 py-0.5 text-[10px] font-semibold text-slate-300 border border-navy-700">
               {badge}
             </span>
           )}
           {tooltip && (
             <div className="group relative cursor-pointer">
               <Info className="h-3.5 w-3.5 text-slate-500 hover:text-slate-300" />
-              <div className="absolute right-0 top-5 z-50 hidden w-48 rounded bg-navy-900 p-2 text-[11px] leading-tight text-slate-200 shadow-xl border border-navy-700 group-hover:block">
+              <div className="absolute right-0 top-5 z-50 hidden w-52 rounded bg-navy-900 p-2.5 text-[11px] leading-tight text-slate-200 shadow-xl border border-navy-700 group-hover:block">
                 {tooltip}
               </div>
             </div>

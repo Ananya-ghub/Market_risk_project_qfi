@@ -8,30 +8,42 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: {
-          950: '#070b14',
-          900: '#0a0f1d',
-          850: '#0e1629',
-          800: '#131d33',
-          750: '#17233d',
-          700: '#1e2c4c',
-          600: '#2a3b63',
-          500: '#3d5284',
+        terminal: {
+          bg: '#080D16',
+          surface: '#0E1726',
+          card: '#121E30',
+          hover: '#18273E',
+          border: '#1B2B42',
+          borderSubtle: '#152236',
+          borderFocus: '#2DD4BF',
         },
-        slate: {
-          850: '#141d2e',
-          900: '#0f172a',
-          950: '#090e17',
+        navy: {
+          950: '#080D16',
+          900: '#0E1726',
+          850: '#121E30',
+          800: '#16243A',
+          750: '#1B2C46',
+          700: '#233754',
+          600: '#324C72',
+          500: '#4A6A9B',
+        },
+        accent: {
+          teal: '#2DD4BF',
+          blue: '#60A5FA',
+          emerald: '#10B981',
+          rose: '#EF4444',
+          amber: '#F59E0B',
+          purple: '#A78BFA',
         },
         risk: {
-          emerald: '#10b981',
-          teal: '#14b8a6',
-          cyan: '#06b6d4',
-          amber: '#f59e0b',
-          rose: '#f43f5e',
-          red: '#ef4444',
-          blue: '#3b82f6',
-          purple: '#8b5cf6',
+          emerald: '#10B981',
+          teal: '#2DD4BF',
+          cyan: '#38BDF8',
+          amber: '#F59E0B',
+          rose: '#EF4444',
+          red: '#DC2626',
+          blue: '#60A5FA',
+          purple: '#A78BFA',
         }
       },
       fontFamily: {
@@ -39,9 +51,10 @@ export default {
         mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'Courier New', 'monospace'],
       },
       boxShadow: {
-        'glow-teal': '0 0 20px -5px rgba(20, 184, 166, 0.25)',
-        'glow-rose': '0 0 20px -5px rgba(244, 63, 94, 0.25)',
-        'card': '0 4px 20px -2px rgba(0, 0, 0, 0.4)',
+        'glow-teal': '0 0 20px -5px rgba(45, 212, 191, 0.25)',
+        'glow-blue': '0 0 20px -5px rgba(96, 165, 250, 0.25)',
+        'glow-rose': '0 0 20px -5px rgba(239, 68, 68, 0.25)',
+        'card': '0 4px 20px -2px rgba(0, 0, 0, 0.45)',
       }
     },
   },

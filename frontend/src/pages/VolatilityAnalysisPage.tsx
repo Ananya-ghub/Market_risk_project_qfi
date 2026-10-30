@@ -66,9 +66,9 @@ export const VolatilityAnalysisPage: React.FC = () => {
 
   // Latest volatility readings
   const latestVol = volatilitySeries[volatilitySeries.length - 1];
-  const latestEwmaAnn = latestVol?.ewma_vol ? (latestVol.ewma_vol * 100 * Math.sqrt(252)).toFixed(2) : '15.82';
-  const latestGarchAnn = latestVol?.garch_vol ? (latestVol.garch_vol * 100 * Math.sqrt(252)).toFixed(2) : '16.45';
-  const latestGjrAnn = latestVol?.gjr_vol ? (latestVol.gjr_vol * 100 * Math.sqrt(252)).toFixed(2) : '16.12';
+  const latestEwmaAnn = latestVol?.ewma_vol ? `${(latestVol.ewma_vol * 100 * Math.sqrt(252)).toFixed(2)}%` : '—';
+  const latestGarchAnn = latestVol?.garch_vol ? `${(latestVol.garch_vol * 100 * Math.sqrt(252)).toFixed(2)}%` : '—';
+  const latestGjrAnn = latestVol?.gjr_vol ? `${(latestVol.gjr_vol * 100 * Math.sqrt(252)).toFixed(2)}%` : '—';
 
   return (
     <div className="space-y-6">
@@ -76,28 +76,28 @@ export const VolatilityAnalysisPage: React.FC = () => {
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <MetricCard
           title="Historical Sample Volatility"
-          value={`${metrics?.annualizedVolatility.toFixed(2) || '17.07'}%`}
+          value={metrics ? `${metrics.annualizedVolatility.toFixed(2)}%` : '—'}
           subValue="Unconditional Annualized"
           icon={Activity}
           variant="neutral"
         />
         <MetricCard
           title="Current EWMA Volatility"
-          value={`${latestEwmaAnn}%`}
+          value={latestEwmaAnn}
           subValue="RiskMetrics λ = 0.94 (Annualized)"
           icon={Zap}
           variant="primary"
         />
         <MetricCard
           title="Current GARCH(1,1) Vol"
-          value={`${latestGarchAnn}%`}
+          value={latestGarchAnn}
           subValue="Conditional MLE Forecast"
           icon={Cpu}
           variant="warning"
         />
         <MetricCard
           title="Current GJR-GARCH Vol"
-          value={`${latestGjrAnn}%`}
+          value={latestGjrAnn}
           subValue="Asymmetric Leverage Adjusted"
           icon={ShieldCheck}
           variant="negative"

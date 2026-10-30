@@ -4,48 +4,48 @@
     "relativePath": "data/processed/clean_prices.csv",
     "publicPath": "/data/processed/clean_prices.csv",
     "category": "Portfolio & Prices",
-    "sizeBytes": 3181098,
-    "lastModified": "2026-10-09T16:26:47.104Z"
+    "sizeBytes": 3195083,
+    "lastModified": "2026-10-30T05:53:51.012Z"
   },
   {
     "filename": "daily_returns.csv",
     "relativePath": "data/processed/daily_returns.csv",
     "publicPath": "/data/processed/daily_returns.csv",
     "category": "Portfolio & Prices",
-    "sizeBytes": 3746762,
-    "lastModified": "2026-10-09T16:26:47.501Z"
+    "sizeBytes": 3763141,
+    "lastModified": "2026-10-30T05:53:52.421Z"
   },
   {
     "filename": "log_returns.csv",
     "relativePath": "data/processed/log_returns.csv",
     "publicPath": "/data/processed/log_returns.csv",
     "category": "Portfolio & Prices",
-    "sizeBytes": 3746775,
-    "lastModified": "2026-10-09T16:26:48.042Z"
+    "sizeBytes": 3762877,
+    "lastModified": "2026-10-30T05:53:53.496Z"
   },
   {
     "filename": "portfolio_pnl.csv",
     "relativePath": "data/processed/portfolio_pnl.csv",
     "publicPath": "/data/processed/portfolio_pnl.csv",
     "category": "Portfolio & Prices",
-    "sizeBytes": 106570,
-    "lastModified": "2026-10-09T16:27:53.180Z"
+    "sizeBytes": 107028,
+    "lastModified": "2026-10-30T05:54:12.394Z"
   },
   {
     "filename": "portfolio_returns.csv",
     "relativePath": "data/processed/portfolio_returns.csv",
     "publicPath": "/data/processed/portfolio_returns.csv",
     "category": "Portfolio & Prices",
-    "sizeBytes": 116403,
-    "lastModified": "2026-10-09T16:27:53.029Z"
+    "sizeBytes": 116907,
+    "lastModified": "2026-10-30T05:54:12.350Z"
   },
   {
     "filename": "portfolio_value.csv",
     "relativePath": "data/processed/portfolio_value.csv",
     "publicPath": "/data/processed/portfolio_value.csv",
     "category": "Portfolio & Prices",
-    "sizeBytes": 105090,
-    "lastModified": "2026-10-09T16:27:53.123Z"
+    "sizeBytes": 105548,
+    "lastModified": "2026-10-30T05:54:12.370Z"
   },
   {
     "filename": "portfolio_weights.csv",
@@ -53,134 +53,134 @@
     "publicPath": "/data/processed/portfolio_weights.csv",
     "category": "Portfolio & Prices",
     "sizeBytes": 513,
-    "lastModified": "2026-10-09T16:27:53.195Z"
+    "lastModified": "2026-10-30T05:54:12.400Z"
   },
   {
     "filename": "rolling_var.csv",
     "relativePath": "outputs/phase4/rolling_var.csv",
     "publicPath": "/outputs/phase4/rolling_var.csv",
     "category": "Phase 4 - Historical VaR & ES",
-    "sizeBytes": 1757370,
-    "lastModified": "2026-10-09T16:29:23.568Z"
+    "sizeBytes": 1767620,
+    "lastModified": "2026-10-30T05:54:58.864Z"
   },
   {
     "filename": "var_summary.csv",
     "relativePath": "outputs/phase4/var_summary.csv",
     "publicPath": "/outputs/phase4/var_summary.csv",
     "category": "Phase 4 - Historical VaR & ES",
-    "sizeBytes": 362,
-    "lastModified": "2026-10-09T16:29:18.963Z"
+    "sizeBytes": 364,
+    "lastModified": "2026-10-30T05:54:46.571Z"
   },
   {
     "filename": "ewma_results.csv",
     "relativePath": "outputs/phase5/ewma_results.csv",
     "publicPath": "/outputs/phase5/ewma_results.csv",
     "category": "Phase 5 - EWMA Volatility",
-    "sizeBytes": 577335,
-    "lastModified": "2026-10-09T16:31:31.180Z"
+    "sizeBytes": 580233,
+    "lastModified": "2026-10-30T05:55:29.566Z"
   },
   {
     "filename": "ewma_volatility.csv",
     "relativePath": "outputs/phase5/ewma_volatility.csv",
     "publicPath": "/outputs/phase5/ewma_volatility.csv",
     "category": "Phase 5 - EWMA Volatility",
-    "sizeBytes": 112701,
-    "lastModified": "2026-10-09T16:31:31.244Z"
+    "sizeBytes": 113193,
+    "lastModified": "2026-10-30T05:55:29.592Z"
   },
   {
     "filename": "ewma_vs_historical.csv",
     "relativePath": "outputs/phase5/ewma_vs_historical.csv",
     "publicPath": "/outputs/phase5/ewma_vs_historical.csv",
     "category": "Phase 5 - EWMA Volatility",
-    "sizeBytes": 732511,
-    "lastModified": "2026-10-09T16:31:31.710Z"
+    "sizeBytes": 736833,
+    "lastModified": "2026-10-30T05:55:29.855Z"
   },
   {
     "filename": "garch_parameters.csv",
     "relativePath": "outputs/phase6/garch_parameters.csv",
     "publicPath": "/outputs/phase6/garch_parameters.csv",
     "category": "Phase 6 - GARCH(1,1)",
-    "sizeBytes": 152,
-    "lastModified": "2026-10-09T16:33:38.981Z"
+    "sizeBytes": 150,
+    "lastModified": "2026-10-30T05:56:48.526Z"
   },
   {
     "filename": "garch_results.csv",
     "relativePath": "outputs/phase6/garch_results.csv",
     "publicPath": "/outputs/phase6/garch_results.csv",
     "category": "Phase 6 - GARCH(1,1)",
-    "sizeBytes": 659254,
-    "lastModified": "2026-10-09T16:33:38.952Z"
+    "sizeBytes": 662762,
+    "lastModified": "2026-10-30T05:56:48.332Z"
   },
   {
     "filename": "garch_volatility.csv",
     "relativePath": "outputs/phase6/garch_volatility.csv",
     "publicPath": "/outputs/phase6/garch_volatility.csv",
     "category": "Phase 6 - GARCH(1,1)",
-    "sizeBytes": 186138,
-    "lastModified": "2026-10-09T16:33:38.975Z"
+    "sizeBytes": 187140,
+    "lastModified": "2026-10-30T05:56:48.518Z"
   },
   {
     "filename": "gjr_garch_parameters.csv",
     "relativePath": "outputs/phase7/gjr_garch_parameters.csv",
     "publicPath": "/outputs/phase7/gjr_garch_parameters.csv",
     "category": "Phase 7 - GJR-GARCH",
-    "sizeBytes": 182,
-    "lastModified": "2026-10-09T16:35:03.368Z"
+    "sizeBytes": 164,
+    "lastModified": "2026-10-30T05:57:56.065Z"
   },
   {
     "filename": "gjr_garch_results.csv",
     "relativePath": "outputs/phase7/gjr_garch_results.csv",
     "publicPath": "/outputs/phase7/gjr_garch_results.csv",
     "category": "Phase 7 - GJR-GARCH",
-    "sizeBytes": 659556,
-    "lastModified": "2026-10-09T16:35:03.341Z"
+    "sizeBytes": 662799,
+    "lastModified": "2026-10-30T05:57:55.222Z"
   },
   {
     "filename": "gjr_garch_volatility.csv",
     "relativePath": "outputs/phase7/gjr_garch_volatility.csv",
     "publicPath": "/outputs/phase7/gjr_garch_volatility.csv",
     "category": "Phase 7 - GJR-GARCH",
-    "sizeBytes": 186338,
-    "lastModified": "2026-10-09T16:35:03.358Z"
+    "sizeBytes": 187169,
+    "lastModified": "2026-10-30T05:57:56.060Z"
   },
   {
     "filename": "backtesting_summary.csv",
     "relativePath": "outputs/phase8/backtesting_summary.csv",
     "publicPath": "/outputs/phase8/backtesting_summary.csv",
     "category": "Phase 8 - VaR Backtesting",
-    "sizeBytes": 2589,
-    "lastModified": "2026-10-09T16:36:44.346Z"
+    "sizeBytes": 2584,
+    "lastModified": "2026-10-30T05:58:26.616Z"
   },
   {
     "filename": "exception_series.csv",
     "relativePath": "outputs/phase8/exception_series.csv",
     "publicPath": "/outputs/phase8/exception_series.csv",
     "category": "Phase 8 - VaR Backtesting",
-    "sizeBytes": 638861,
-    "lastModified": "2026-10-09T16:36:44.481Z"
+    "sizeBytes": 643781,
+    "lastModified": "2026-10-30T05:58:26.940Z"
   },
   {
     "filename": "model_comparison.csv",
     "relativePath": "outputs/phase9/model_comparison.csv",
     "publicPath": "/outputs/phase9/model_comparison.csv",
     "category": "Phase 9 - Model Comparison",
-    "sizeBytes": 1835,
-    "lastModified": "2026-10-09T16:37:56.535Z"
+    "sizeBytes": 1838,
+    "lastModified": "2026-10-30T05:58:51.892Z"
   },
   {
     "filename": "baseline_risk.csv",
     "relativePath": "outputs/phase10/baseline_risk.csv",
     "publicPath": "/outputs/phase10/baseline_risk.csv",
     "category": "Phase 10 - Stress Testing",
-    "sizeBytes": 283,
-    "lastModified": "2026-10-09T16:39:34.568Z"
+    "sizeBytes": 286,
+    "lastModified": "2026-10-30T05:59:17.556Z"
   },
   {
     "filename": "stress_test_results.csv",
     "relativePath": "outputs/phase10/stress_test_results.csv",
     "publicPath": "/outputs/phase10/stress_test_results.csv",
     "category": "Phase 10 - Stress Testing",
-    "sizeBytes": 1072,
-    "lastModified": "2026-10-09T16:39:34.562Z"
+    "sizeBytes": 1074,
+    "lastModified": "2026-10-30T05:59:17.552Z"
   }
 ]

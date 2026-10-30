@@ -1,0 +1,10 @@
+{
+  "name": "advanced-equity-portfolio-risk-management",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm --prefix frontend run build",
+    "prebuild": "npm --prefix frontend run prebuild",
+    "install-frontend": "npm --prefix frontend install"
+  }
+}

@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard,
   PieChart,
+  LineChart,
   ShieldAlert,
   BarChart3,
   Activity,
@@ -29,6 +30,7 @@ interface SidebarProps {
 const navItems = [
   { path: '/', label: 'Overview', icon: LayoutDashboard },
   { path: '/portfolio', label: 'Portfolio Analytics', icon: PieChart },
+  { path: '/market-data', label: 'Market Data', icon: LineChart },
   { path: '/risk-models', label: 'Risk Models', icon: ShieldAlert },
   { path: '/historical-var', label: 'Historical VaR & ES', icon: TrendingDown },
   { path: '/volatility', label: 'Volatility Analysis', icon: Activity },
@@ -60,7 +62,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Sidebar Container */}
       <aside
         className={`fixed inset-y-0 left-0 z-50 flex flex-col border-r border-navy-800 bg-navy-950 transition-all duration-300 lg:static ${
-          collapsed ? 'w-18' : 'w-64'
+          collapsed ? 'w-20' : 'w-64'
         } ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
       >
         {/* Brand Header */}

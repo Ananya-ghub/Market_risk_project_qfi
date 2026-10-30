@@ -1,15 +1,23 @@
 export interface FreshnessInfo {
   success: boolean;
+  latest_market_observation_date?: string;
   local_latest_date: string;
   market_latest_date: string;
   is_up_to_date: boolean;
   status: 'data_up_to_date' | 'updates_available' | 'refresh_in_progress' | 'refresh_completed' | 'refresh_failed' | 'refresh_unavailable';
+  data_download_timestamp?: string | null;
+  data_processing_timestamp?: string | null;
+  csv_generation_timestamp?: string | null;
+  last_successful_refresh_timestamp?: string | null;
   market_data_mtime?: string | null;
   analysis_mtime?: string | null;
   checked_at?: string;
   calendar_note?: string;
   error?: string;
   message?: string;
+  observations_count?: number;
+  stock_count?: number;
+  latest_portfolio_value?: number;
 }
 
 export interface PortfolioValuePoint {

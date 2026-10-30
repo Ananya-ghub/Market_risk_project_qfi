@@ -5,7 +5,6 @@ import numpy as np
 import pandas as pd
 
 
-
 def main():
     print("\nStarting Phase 2: Data Cleaning...")
 
@@ -53,7 +52,10 @@ def main():
     prices = prices.ffill(limit=3)
 
     # Calculate returns. Drop rows where any retained stock has no return.
-    daily_returns = prices.pct_change(fill_method=None)
+    try:
+        daily_returns = prices.pct_change()
+    except Exception:
+        daily_returns = prices.pct_change(fill_method=None)
     daily_returns = daily_returns.replace([np.inf, -np.inf], np.nan)
 
     # Use the same stock universe and dates for a consistent portfolio.
@@ -85,6 +87,7 @@ def main():
     print(f"Input file: {price_file.name}")
     print(f"Stocks retained: {prices.shape[1]}")
     print(f"Aligned return observations: {len(daily_returns)}")
+    print(f"Date range: {daily_returns.index[0].strftime('%Y-%m-%d')} to {daily_returns.index[-1].strftime('%Y-%m-%d')}")
     print("Saved clean_prices.csv")
     print("Saved daily_returns.csv")
     print("Saved log_returns.csv")

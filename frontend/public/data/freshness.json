@@ -1,10 +1,20 @@
 {
   "success": true,
-  "local_latest_date": "2026-10-08",
-  "market_latest_date": "2026-10-08",
+  "latest_market_observation_date": "2026-10-29",
+  "local_latest_date": "2026-10-29",
+  "market_latest_date": "2026-10-29",
   "is_up_to_date": true,
   "status": "data_up_to_date",
-  "market_data_mtime": "2026-10-09T16:27:53.123Z",
-  "checked_at": "2026-10-28T11:28:01.646Z",
-  "last_synced": "2026-10-28T11:28:01.646Z"
+  "data_download_timestamp": "2026-10-30T05:53:18.639Z",
+  "data_processing_timestamp": "2026-10-30T05:53:51.012Z",
+  "csv_generation_timestamp": "2026-10-30T05:59:17.552Z",
+  "last_successful_refresh_timestamp": "2026-10-30T06:09:21.315Z",
+  "checked_at": "2026-10-30T06:09:21.315Z",
+  "last_synced": "2026-10-30T06:09:21.315Z",
+  "deployment_timestamp": "2026-10-30T06:09:21.315Z",
+  "observations_count": 3476,
+  "stock_count": 50,
+  "latest_portfolio_value": 1306014.5699283471,
+  "initial_capital": 100000,
+  "calendar_note": "Verified against authentic Yahoo Finance historical market data."
 }

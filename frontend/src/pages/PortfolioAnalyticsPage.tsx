@@ -90,36 +90,36 @@ export const PortfolioAnalyticsPage: React.FC = () => {
         />
         <MetricCard
           title="Latest Portfolio Value"
-          value={`$${metrics?.latestValue ? Math.round(metrics.latestValue).toLocaleString() : '1,264,037'}`}
-          change={`+${metrics?.totalReturn.toFixed(1)}%`}
+          value={metrics ? `$${Math.round(metrics.latestValue).toLocaleString()}` : '—'}
+          change={metrics ? `+${metrics.totalReturn.toFixed(1)}%` : undefined}
           isPositive={true}
           icon={TrendingUp}
           variant="positive"
         />
         <MetricCard
           title="Annualized Return"
-          value={`${metrics?.annualizedReturn.toFixed(2)}%`}
+          value={metrics ? `${metrics.annualizedReturn.toFixed(2)}%` : '—'}
           subValue="Compound Annual Growth"
           icon={TrendingUp}
           variant="positive"
         />
         <MetricCard
           title="Annualized Volatility"
-          value={`${metrics?.annualizedVolatility.toFixed(2)}%`}
+          value={metrics ? `${metrics.annualizedVolatility.toFixed(2)}%` : '—'}
           subValue="σ × √252 (Daily Std)"
           icon={Activity}
           variant="warning"
         />
         <MetricCard
           title="Sharpe Ratio (Rf=4%)"
-          value={metrics?.sharpeRatio.toFixed(3) || '0.954'}
+          value={metrics ? metrics.sharpeRatio.toFixed(3) : '—'}
           subValue="Risk-Adjusted Excess"
           variant="primary"
         />
         <MetricCard
           title="Max Drawdown"
-          value={`${metrics?.maxDrawdown.toFixed(2)}%`}
-          subValue="Mar 2020 COVID Shock"
+          value={metrics ? `${metrics.maxDrawdown.toFixed(2)}%` : '—'}
+          subValue="Peak-to-Trough Decline"
           icon={TrendingDown}
           variant="negative"
         />
@@ -130,7 +130,7 @@ export const PortfolioAnalyticsPage: React.FC = () => {
         {/* Cumulative Valuation */}
         <ChartCard
           title="Portfolio Valuation History"
-          subtitle="Compounded growth from $100k starting capital across 3,461 trading days"
+          subtitle={`Compounded growth from $100k starting capital across ${portfolioValues.length.toLocaleString()} trading days`}
           timeRange={timeRange}
           onTimeRangeChange={setTimeRange}
           badge="MARK-TO-MARKET"

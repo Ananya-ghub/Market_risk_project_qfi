@@ -194,7 +194,7 @@ export const ReportsExportsPage: React.FC = () => {
                       <td className="py-2 px-2 text-right text-rose-400 font-bold">{b.exceptions}</td>
                       <td className="py-2 px-2 text-right text-slate-200">{(b.exception_rate * 100).toFixed(2)}%</td>
                       <td className="py-2 px-2 text-right text-sky-300">
-                        {(modelComparison.find((m) => m.model === b.model && Math.abs(m.confidence - 0.99) < 0.001)?.average_VaR || 0 * 100).toFixed(2)}%
+                        {(((modelComparison.find((m) => m.model === b.model && Math.abs(m.confidence - 0.99) < 0.001)?.average_VaR) ?? 0) * 100).toFixed(2)}%
                       </td>
                       <td className="py-2 px-2 text-center text-[10px]">
                         <span className={b.kupiec_pass_5pct ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold'}>

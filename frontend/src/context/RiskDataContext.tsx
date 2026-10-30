@@ -82,8 +82,9 @@ const defaultSettings: UserSettings = {
 
 const defaultFreshness: FreshnessInfo = {
   success: true,
-  local_latest_date: '2026-10-08',
-  market_latest_date: '2026-10-08',
+  latest_market_observation_date: '2026-10-29',
+  local_latest_date: '2026-10-29',
+  market_latest_date: '2026-10-29',
   is_up_to_date: true,
   status: 'data_up_to_date',
   checked_at: new Date().toISOString()
@@ -328,8 +329,9 @@ export const RiskDataProvider: React.FC<{ children: ReactNode }> = ({ children }
     initData();
   }, [loadAllData]);
 
-  // Explicit user refresh trigger
+  // Explicit user refresh trigger with duplicate guard and cache busting
   const triggerRefresh = async () => {
+    if (refreshing) return;
     setRefreshing(true);
     try {
       clearCsvCache();
@@ -337,9 +339,10 @@ export const RiskDataProvider: React.FC<{ children: ReactNode }> = ({ children }
         try {
           await fetch('/api/refresh', { method: 'POST' });
         } catch {
-          // ignore dev server error
+          // ignore dev server fallback
         }
       }
+      await checkFreshness();
       await loadAllData(true);
     } catch (e: any) {
       console.warn('Manual refresh error:', e);

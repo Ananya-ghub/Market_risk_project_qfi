@@ -7,12 +7,7 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  Legend,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  Radar
+  Legend
 } from 'recharts';
 import { useRiskData } from '../context/RiskDataContext';
 import { ChartCard } from '../components/common/ChartCard';

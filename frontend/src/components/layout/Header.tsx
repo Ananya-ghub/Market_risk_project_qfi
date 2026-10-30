@@ -10,6 +10,7 @@ interface HeaderProps {
 const pageTitles: Record<string, { title: string; subtitle: string }> = {
   '/': { title: 'Overview Dashboard', subtitle: 'Executive Risk Summary & Key Portfolio Indicators' },
   '/portfolio': { title: 'Portfolio Analytics', subtitle: 'Holdings, P&L Distribution & Return Dynamics' },
+  '/market-data': { title: 'Market Data Explorer', subtitle: '50-Equity S&P Universe Prices, Returns & Volatility Dynamics' },
   '/risk-models': { title: 'Risk Models', subtitle: 'Theoretical Foundations, Parameters & Mathematical Formulations' },
   '/historical-var': { title: 'Historical VaR & Expected Shortfall', subtitle: 'Tail-Loss Risk Metrics Across Confidence Levels & Windows' },
   '/volatility': { title: 'Volatility Analysis', subtitle: 'EWMA, GARCH(1,1), and GJR-GARCH Conditional Modeling' },

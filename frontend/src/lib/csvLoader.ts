@@ -226,15 +226,7 @@ export async function loadModelComparison(forceRefresh = false): Promise<ModelCo
 export async function loadBaselineRisk(forceRefresh = false): Promise<BaselineRisk> {
   const rows = await parseCsv<any>('/outputs/phase10/baseline_risk.csv', undefined, forceRefresh);
   if (rows.length === 0) {
-    return {
-      initial_investment: 100000,
-      daily_volatility: 0.01075,
-      covariance_portfolio_volatility: 0.01075,
-      historical_var_99: 0.03048,
-      historical_es_99: 0.04407,
-      historical_var_99_dollars: 3048.62,
-      historical_es_99_dollars: 4407.53
-    };
+    throw new Error('baseline_risk.csv is empty or missing');
   }
   const r = rows[0];
   return {

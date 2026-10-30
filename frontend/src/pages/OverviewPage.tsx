@@ -96,10 +96,10 @@ export const OverviewPage: React.FC = () => {
 
         <MetricCard
           title="Latest Portfolio Value"
-          value={`$${metrics?.latestValue ? Math.round(metrics.latestValue).toLocaleString() : '1,264,037'}`}
-          change={`+${metrics?.totalReturn.toFixed(1) || '1,164.0'}%`}
+          value={metrics ? `$${Math.round(metrics.latestValue).toLocaleString()}` : '—'}
+          change={metrics ? `+${metrics.totalReturn.toFixed(1)}%` : undefined}
           isPositive={true}
-          subValue={`As of ${metrics?.latestDate || '2026-10-08'}`}
+          subValue={metrics ? `As of ${metrics.latestDate}` : 'Calculating...'}
           icon={TrendingUp}
           tooltip="Current mark-to-market portfolio value based on 50 equal-weighted equities"
           variant="positive"
@@ -107,7 +107,7 @@ export const OverviewPage: React.FC = () => {
 
         <MetricCard
           title="Annualized Volatility"
-          value={`${metrics?.annualizedVolatility.toFixed(2) || '17.07'}%`}
+          value={metrics ? `${metrics.annualizedVolatility.toFixed(2)}%` : '—'}
           subValue="Daily Vol × √252"
           icon={Activity}
           tooltip="Annualized standard deviation of daily portfolio returns"
@@ -116,8 +116,8 @@ export const OverviewPage: React.FC = () => {
 
         <MetricCard
           title="95% Value at Risk (1D)"
-          value={`${var95 ? (var95.VaR_return * 100).toFixed(2) : '1.56'}%`}
-          subValue={`$${var95 ? Math.round(var95.VaR_dollars_initial_100k).toLocaleString() : '1,559'} (on $100k)`}
+          value={var95 ? `${(var95.VaR_return * 100).toFixed(2)}%` : '—'}
+          subValue={var95 ? `$${Math.round(var95.VaR_dollars_initial_100k).toLocaleString()} (on $100k)` : undefined}
           icon={ShieldAlert}
           badge="95% CONF"
           tooltip="Maximum expected daily loss 95% of the time under Historical Simulation"
@@ -126,8 +126,8 @@ export const OverviewPage: React.FC = () => {
 
         <MetricCard
           title="99% Value at Risk (1D)"
-          value={`${var99 ? (var99.VaR_return * 100).toFixed(2) : '3.05'}%`}
-          subValue={`$${var99 ? Math.round(var99.VaR_dollars_initial_100k).toLocaleString() : '3,049'} (on $100k)`}
+          value={var99 ? `${(var99.VaR_return * 100).toFixed(2)}%` : '—'}
+          subValue={var99 ? `$${Math.round(var99.VaR_dollars_initial_100k).toLocaleString()} (on $100k)` : undefined}
           icon={TrendingDown}
           badge="99% CONF"
           tooltip="Maximum expected daily loss 99% of the time under Historical Simulation"
@@ -139,8 +139,8 @@ export const OverviewPage: React.FC = () => {
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-5">
         <MetricCard
           title="95% Expected Shortfall"
-          value={`${var95 ? (var95.ES_return * 100).toFixed(2) : '2.54'}%`}
-          subValue={`$${var95 ? Math.round(var95.ES_dollars_initial_100k).toLocaleString() : '2,544'} (on $100k)`}
+          value={var95 ? `${(var95.ES_return * 100).toFixed(2)}%` : '—'}
+          subValue={var95 ? `$${Math.round(var95.ES_dollars_initial_100k).toLocaleString()} (on $100k)` : undefined}
           badge="CVaR 95%"
           tooltip="Expected loss given that loss exceeds the 95% VaR threshold"
           variant="negative"
@@ -148,8 +148,8 @@ export const OverviewPage: React.FC = () => {
 
         <MetricCard
           title="99% Expected Shortfall"
-          value={`${var99 ? (var99.ES_return * 100).toFixed(2) : '4.41'}%`}
-          subValue={`$${var99 ? Math.round(var99.ES_dollars_initial_100k).toLocaleString() : '4,408'} (on $100k)`}
+          value={var99 ? `${(var99.ES_return * 100).toFixed(2)}%` : '—'}
+          subValue={var99 ? `$${Math.round(var99.ES_dollars_initial_100k).toLocaleString()} (on $100k)` : undefined}
           badge="CVaR 99%"
           tooltip="Average tail loss when market breaches 99% VaR cutoff"
           variant="negative"
@@ -157,7 +157,7 @@ export const OverviewPage: React.FC = () => {
 
         <MetricCard
           title="Portfolio Sharpe Ratio"
-          value={metrics?.sharpeRatio.toFixed(3) || '0.954'}
+          value={metrics ? metrics.sharpeRatio.toFixed(3) : '—'}
           subValue="Rf = 4.0% Risk-Free"
           tooltip="(Annualized Return - 4.0%) / Annualized Volatility"
           variant="primary"

@@ -5,6 +5,7 @@ import { Shell } from './components/layout/Shell';
 
 import { OverviewPage } from './pages/OverviewPage';
 import { PortfolioAnalyticsPage } from './pages/PortfolioAnalyticsPage';
+import { MarketDataPage } from './pages/MarketDataPage';
 import { RiskModelsPage } from './pages/RiskModelsPage';
 import { HistoricalVarPage } from './pages/HistoricalVarPage';
 import { VolatilityAnalysisPage } from './pages/VolatilityAnalysisPage';
@@ -24,6 +25,7 @@ function App() {
           <Route element={<Shell />}>
             <Route path="/" element={<OverviewPage />} />
             <Route path="/portfolio" element={<PortfolioAnalyticsPage />} />
+            <Route path="/market-data" element={<MarketDataPage />} />
             <Route path="/risk-models" element={<RiskModelsPage />} />
             <Route path="/historical-var" element={<HistoricalVarPage />} />
             <Route path="/volatility" element={<VolatilityAnalysisPage />} />

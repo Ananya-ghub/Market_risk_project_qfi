@@ -239,7 +239,7 @@ export const RiskModelsPage: React.FC = () => {
                   </div>
                   <div>
                     <span className="text-slate-500">α[1]</span>
-                    <p className="font-bold text-white">0.000</p>
+                    <p className="font-bold text-white">{gjrAlpha < 1e-4 ? '0.000' : gjrAlpha.toFixed(4)}</p>
                   </div>
                   <div>
                     <span className="text-slate-500">γ[1]</span>
